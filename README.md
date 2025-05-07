@@ -1,77 +1,178 @@
-# Linux-Command
-Root Command and permission denied
-![image](https://github.com/user-attachments/assets/3519158c-3e8a-49bb-802c-48c0b4d564cf)
-
-Sudo commands run successfull
-![image](https://github.com/user-attachments/assets/a2ea5d2e-89a2-4ed3-90a5-419d5323b19b)
-
-verify folder's creation
-![image](https://github.com/user-attachments/assets/a3c0b1d8-73f1-4984-a6bd-05e74847e508)
-
-pwd command
-![image](https://github.com/user-attachments/assets/7b1056a2-396c-41de-b9a9-b340cb3dacd5)
-
-cd / command
-![image](https://github.com/user-attachments/assets/f75d4aeb-bb42-43bc-a055-c0b442d58d70)
-
-ls -1 command
-![image](https://github.com/user-attachments/assets/0d4cb0d7-6370-45f2-aac7-ec75f06af6f5)
-
-Sudo Cd/usr
-![image](https://github.com/user-attachments/assets/ea2a213a-8e40-401f-a8bc-ed058923e6bb)
-
-Side Hustle task 1
-
-![image](https://github.com/user-attachments/assets/a60648bb-24e4-4c1b-9098-0590a46b39f4)
-
-![image](https://github.com/user-attachments/assets/46669461-0621-460d-9f3a-73a8672df5bb)
-
-![image](https://github.com/user-attachments/assets/a018f9f9-dc48-478d-ba0f-e3d4e8c61a1a)
-
-![image](https://github.com/user-attachments/assets/5d67df4b-cb5a-401d-bb38-1e60a585a774)
-
-Cat Commands
-![image](https://github.com/user-attachments/assets/775afedf-d7d7-4547-b45f-54573ade493e)
-
-cp filename.txt
-![image](https://github.com/user-attachments/assets/13610b33-bb79-4832-a3f1-93e9a3f8b2a7)
 
 
+# 📁 Linux Commands Project: System-Level File and Directory Operations
 
-![image](https://github.com/user-attachments/assets/f9559fe1-a668-45a9-830f-887db928dbd3)
+## 📌 Project Overview
 
-![image](https://github.com/user-attachments/assets/319b0fe6-df38-4a57-9d9d-909803d99d86)
+This project documents the use of key Linux commands for creating, navigating, and managing directories and files—especially within system directories like `/usr`. It includes permission handling, verification steps, and common errors with their resolutions.
 
-cp -r 
-![image](https://github.com/user-attachments/assets/c0be17a5-cf2b-420c-8794-88e891cdfe5a)
+---
 
-move command
-![image](https://github.com/user-attachments/assets/2af6c286-d112-4201-8471-157ab5f39440)
+## 🧰 1. Root Access & Permissions
 
-rename command
-![image](https://github.com/user-attachments/assets/961fab41-69ee-430b-9940-cc94bb9d28b0)
+### 🔒 Understanding Permission Errors
 
-touch
-![image](https://github.com/user-attachments/assets/71ff1fc7-8793-498d-9c50-d54af4c57936)
+* Attempting to create folders in `/usr` gave:
 
-notes.txt
-![image](https://github.com/user-attachments/assets/c5ffcc2f-4dc8-428e-a2b6-3e22f82f545a)
+  ```
+  mkdir: cannot create directory '/usr/photos': Permission denied
+  ```
+* Lesson:
 
+  * Regular users can’t modify system-level directories.
+  * Use `sudo` for admin rights.
+  * `cd` is a shell built-in; `sudo cd` doesn’t work.
 
+### ✅ Solution: Directory Creation with `sudo`
 
+```bash
+sudo mkdir /usr/photos
+```
 
+### 🔍 Verification
 
+```bash
+ls -l /usr | grep photos
+drwxr-xr-x 2 root root 4096 Mar 15 10:00 photos
+```
 
+---
 
+## 📂 2. Directory Navigation
 
+### 📍 `pwd` - Print Working Directory
 
+```bash
+pwd
+/home/ubuntu
+```
 
+### 📁 `cd` - Change Directory
 
+```bash
+cd /usr/local
+```
 
+> `sudo cd` fails because `cd` is a built-in command.
 
+### 📋 `ls` - List Contents
 
+```bash
+ls -l /usr
+```
 
+> `-l` shows detailed listing. Verified `/usr/photos` exists.
 
+---
 
+## 📄 3. File Operations
 
+### 📝 `touch` - Create Empty File
+
+```bash
+touch notes.txt
+ls -l notes.txt
+```
+
+```
+-rw-r--r-- 1 ubuntu ubuntu 0 Mar 15 10:05 notes.txt
+```
+
+### 📁 `cp` - Copy Files/Directories
+
+```bash
+cp notes.txt notes_backup.txt
+cp -r /home/ubuntu/Documents /backup
+```
+
+### 🚚 `mv` - Move/Rename
+
+```bash
+mv notes.txt important_notes.txt
+sudo mv important_notes.txt /usr/photos/
+```
+
+### ✅ Verification
+
+```bash
+ls /usr/photos/
+important_notes.txt
+```
+
+---
+
+## ✅ 4. Side Hustle Task 1: Directory Structure Creation
+
+### 📜 Requirements
+
+1. Create `/usr/photos` with subfolders
+2. Show full paths
+3. List all directories
+
+### 🛠 Implementation
+
+```bash
+sudo mkdir -p /usr/photos/{vacation,family,work}
+cd /usr/photos
+pwd
+ls -1
+```
+
+### 🔍 Full Directory Structure
+
+```bash
+find /usr/photos -type d
+```
+
+```
+/usr/photos
+/usr/photos/vacation
+/usr/photos/family
+/usr/photos/work
+```
+
+---
+
+## 📘 5. Lessons Learned
+
+### 🛡 1. Permission Management
+
+* Practice in `/home` first
+* Use `sudo` for system folders
+
+### ⚠️ 2. Shell Built-ins
+
+* `sudo cd` fails
+* Use:
+
+  ```bash
+  sudo -i
+  cd /usr
+  ```
+
+### 🔍 3. Verification Is Key
+
+* Always check results with `ls`, `find`
+* Compare before/after states
+
+### 🧪 4. Best Practices
+
+```bash
+mkdir -p ~/practice/photos
+cp -r ~/practice/photos /tmp/backup
+sudo cp -r ~/practice/photos /usr/share
+```
+
+---
+
+## 🛠 6. Error Corrections & Improvements
+
+| Mistake                      | Fix                                            |
+| ---------------------------- | ---------------------------------------------- |
+| Used `sudo cd`               | Used `sudo -i` then `cd`                       |
+| Permissions denied in `/usr` | Used `sudo` with commands                      |
+| No command verification      | Added `ls`, `find`, `pwd` after each operation |
+| Lack of explanation          | Added comments and reasoning for each step     |
+
+---
 
